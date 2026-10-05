@@ -415,17 +415,27 @@ export default function BookingFlow() {
             </div>
           ) : null}
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8">
+          {q ? (
+            <div className="mt-10 flex items-end justify-between rounded-[3px] border border-line bg-coal px-5 py-4 lg:hidden" aria-live="polite">
+              <div>
+                <p className="eyebrow">Total · {q.days} jour{q.days > 1 ? "s" : ""}</p>
+                <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-mute">Caution {formatDZD(q.deposit)}</p>
+              </div>
+              <p className="font-display text-3xl font-semibold leading-none">{formatDZD(q.total)}</p>
+            </div>
+          ) : null}
+
+          <div className="mt-6 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:pt-8">
             {step > 0 ? (
-              <button type="button" className="btn btn-ghost" onClick={() => goTo(step - 1)}>
+              <button type="button" className="btn btn-ghost w-full sm:w-auto" onClick={() => goTo(step - 1)}>
                 <IconArrowLeft /> Retour
               </button>
             ) : (
-              <Link href="/fleet" className="btn btn-ghost">
+              <Link href="/fleet" className="btn btn-ghost w-full sm:w-auto">
                 <IconArrowLeft /> Voir la flotte
               </Link>
             )}
-            <button type="submit" className="btn btn-primary min-w-[14rem]" disabled={submitting}>
+            <button type="submit" className="btn btn-primary w-full sm:w-auto sm:min-w-[14rem]" disabled={submitting}>
               {submitting ? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-accent-ink/30 border-t-accent-ink" aria-hidden="true" /> Envoi en cours…

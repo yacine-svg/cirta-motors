@@ -50,8 +50,8 @@ export default function BookingWidget({ className = "", initial, variant = "hero
 
   return (
     <form onSubmit={onSubmit} className={`${glass} rounded-[3px] p-2 ${className}`} aria-label="Rechercher une voiture" noValidate>
-      <div className="grid gap-px overflow-hidden rounded-[2px] bg-line/60 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr_auto]">
-        <Field label="Ville de départ" htmlFor={`${uid}-city`}>
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[2px] bg-line/60 lg:grid-cols-[1.1fr_1fr_1fr_1fr_auto]">
+        <Field label="Ville de départ" htmlFor={`${uid}-city`} className="col-span-2 lg:col-span-1">
           <select id={`${uid}-city`} value={city} onChange={(e) => setCity(e.target.value)} className="w-full bg-transparent py-1 font-medium outline-none">
             {cities.map((c) => (
               <option key={c.id} value={c.id} className="bg-coal">
@@ -73,7 +73,7 @@ export default function BookingWidget({ className = "", initial, variant = "hero
                 if (d) setTo(toISODate(addDays(d, 1)));
               }
             }}
-            className="w-full bg-transparent py-1 font-medium outline-none"
+            className="w-full min-w-0 appearance-none bg-transparent py-1 font-medium outline-none"
           />
         </Field>
         <Field label="Retour" htmlFor={`${uid}-to`}>
@@ -83,10 +83,10 @@ export default function BookingWidget({ className = "", initial, variant = "hero
             value={to}
             min={from || minDate || undefined}
             onChange={(e) => setTo(e.target.value)}
-            className="w-full bg-transparent py-1 font-medium outline-none"
+            className="w-full min-w-0 appearance-none bg-transparent py-1 font-medium outline-none"
           />
         </Field>
-        <Field label="Catégorie" htmlFor={`${uid}-cat`}>
+        <Field label="Catégorie" htmlFor={`${uid}-cat`} className="col-span-2 lg:col-span-1">
           <select id={`${uid}-cat`} value={category} onChange={(e) => setCategory(e.target.value as Category | "all")} className="w-full bg-transparent py-1 font-medium outline-none">
             <option value="all" className="bg-coal">
               Toutes
@@ -98,7 +98,7 @@ export default function BookingWidget({ className = "", initial, variant = "hero
             ))}
           </select>
         </Field>
-        <div className="bg-night/40 p-2 sm:col-span-2 lg:col-span-1">
+        <div className="col-span-2 bg-night/40 p-2 lg:col-span-1">
           <button type="submit" className="btn btn-primary h-full min-h-14 w-full">
             {submitLabel} <IconArrow className="text-base" />
           </button>
@@ -113,9 +113,9 @@ export default function BookingWidget({ className = "", initial, variant = "hero
   );
 }
 
-function Field({ label, htmlFor, children }: { label: string; htmlFor: string; children: React.ReactNode }) {
+function Field({ label, htmlFor, className = "", children }: { label: string; htmlFor: string; className?: string; children: React.ReactNode }) {
   return (
-    <div className="bg-night/40 px-4 py-3 transition-colors focus-within:bg-night/70">
+    <div className={`min-w-0 bg-night/40 px-4 py-3 transition-colors focus-within:bg-night/70 ${className}`}>
       <label htmlFor={htmlFor} className="label mb-1">
         {label}
       </label>
